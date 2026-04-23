@@ -2,22 +2,29 @@
 
 $name = $_POST['name'];
 
+//性別
 $gender = $_POST['gender'];
 if($gender == "man") {
     $gender = "男性";
-} else {
+} else if($gender == "woman") {
     $gender = "女性";
+} else {
+    $gender = "不正な値です。";
 }
 
-$tmp_star = $_POST['star'];
-$star = '';
+//評価
+$tmp_star = intval($_POST['star']); //整数として受け取る
+$star = '';//画面に出力する用の文字列
+if($tmp_star < 1 || $tmp_star > 5) { //1~5であるかのチェック
+    $star_star = "不正な値です";
+} else {
+    for($i = 0; $i < $tmp_star; $i++) {
+        $star .= '★';//送信あれた数だけ星を追加
+    }
 
-for($i = 0; $i < $tmp_star; $i++) {
-    $star .= '★';
-}
-
-for(; $i < 5; $i++) {
-    $star .= '☆';
+    for(; $i < 5; $i++) {
+        $star .= '☆';//「5-送信された数字」の分だけ☆を追加
+    }
 }
 
 $other = $_POST['other'];
